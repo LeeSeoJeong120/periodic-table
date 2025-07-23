@@ -14,7 +14,7 @@ def convert_to_embed(url):
 # ▶ 원소 정보 일부 예시 (1~20번)
 elements = {
     "H": {"Z": 1, "name": "수소", "image": "https://images-of-elements.com/hydrogen.jpg", "video": "https://youtube.com/shorts/enPX78U9nbg?si=yZ25IlbAC1zmJHS4"},
-    "He": {"Z": 2, "name": "헬륨", "image": "https://images-of-elements.com/helium.jpg", "video": "https://www.youtube.com/watch?v=SKM3UG2iFOw"},
+    "He": {"Z": 2, "name": "헬륨", "image": "https://images-of-elements.com/helium.jpg", "video": ""},
     "Li": {"Z": 3, "name": "리튬", "image": "https://images-of-elements.com/lithium.jpg", "video": ""},
     "Be": {"Z": 4, "name": "베릴륨", "image": "https://images-of-elements.com/beryllium.jpg", "video": ""},
     "B": {"Z": 5, "name": "붕소", "image": "https://images-of-elements.com/boron.jpg", "video": ""},
