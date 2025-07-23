@@ -13,26 +13,26 @@ def convert_to_embed(url):
 
 # ▶ 원소 정보 일부 예시 (1~20번)
 elements = {
-    "H": {"Z": 1, "name": "Hydrogen", "image": "https://images-of-elements.com/hydrogen.jpg", "video": "https://youtube.com/shorts/enPX78U9nbg?si=yZ25IlbAC1zmJHS4"},
-    "He": {"Z": 2, "name": "Helium", "image": "https://images-of-elements.com/helium.jpg", "video": "https://www.youtube.com/watch?v=SKM3UG2iFOw"},
-    "Li": {"Z": 3, "name": "Lithium", "image": "https://images-of-elements.com/lithium.jpg", "video": ""},
-    "Be": {"Z": 4, "name": "Beryllium", "image": "https://images-of-elements.com/beryllium.jpg", "video": ""},
-    "B": {"Z": 5, "name": "Boron", "image": "https://images-of-elements.com/boron.jpg", "video": ""},
-    "C": {"Z": 6, "name": "Carbon", "image": "https://images-of-elements.com/carbon.jpg", "video": ""},
-    "N": {"Z": 7, "name": "Nitrogen", "image": "https://images-of-elements.com/nitrogen.jpg", "video": ""},
-    "O": {"Z": 8, "name": "Oxygen", "image": "https://images-of-elements.com/oxygen.jpg", "video": ""},
-    "F": {"Z": 9, "name": "Fluorine", "image": "https://images-of-elements.com/fluorine.jpg", "video": ""},
-    "Ne": {"Z": 10, "name": "Neon", "image": "https://images-of-elements.com/neon.jpg", "video": ""},
-    "Na": {"Z": 11, "name": "Sodium", "image": "https://images-of-elements.com/sodium.jpg", "video": ""},
-    "Mg": {"Z": 12, "name": "Magnesium", "image": "https://images-of-elements.com/magnesium.jpg", "video": ""},
-    "Al": {"Z": 13, "name": "Aluminium", "image": "https://images-of-elements.com/aluminium.jpg", "video": ""},
-    "Si": {"Z": 14, "name": "Silicon", "image": "https://images-of-elements.com/silicon.jpg", "video": ""},
-    "P": {"Z": 15, "name": "Phosphorus", "image": "https://images-of-elements.com/phosphorus.jpg", "video": ""},
-    "S": {"Z": 16, "name": "Sulfur", "image": "https://images-of-elements.com/sulfur.jpg", "video": ""},
-    "Cl": {"Z": 17, "name": "Chlorine", "image": "https://images-of-elements.com/chlorine.jpg", "video": ""},
-    "Ar": {"Z": 18, "name": "Argon", "image": "https://images-of-elements.com/argon.jpg", "video": ""},
-    "K": {"Z": 19, "name": "Potassium", "image": "https://images-of-elements.com/potassium.jpg", "video": ""},
-    "Ca": {"Z": 20, "name": "Calcium", "image": "https://images-of-elements.com/calcium.jpg", "video": ""}
+    "H": {"Z": 1, "name": "수소", "image": "https://images-of-elements.com/hydrogen.jpg", "video": "https://youtube.com/shorts/enPX78U9nbg?si=yZ25IlbAC1zmJHS4"},
+    "He": {"Z": 2, "name": "헬륨", "image": "https://images-of-elements.com/helium.jpg", "video": "https://www.youtube.com/watch?v=SKM3UG2iFOw"},
+    "Li": {"Z": 3, "name": "리튬", "image": "https://images-of-elements.com/lithium.jpg", "video": ""},
+    "Be": {"Z": 4, "name": "베릴륨", "image": "https://images-of-elements.com/beryllium.jpg", "video": ""},
+    "B": {"Z": 5, "name": "붕소", "image": "https://images-of-elements.com/boron.jpg", "video": ""},
+    "C": {"Z": 6, "name": "탄소", "image": "https://images-of-elements.com/carbon.jpg", "video": ""},
+    "N": {"Z": 7, "name": "질소", "image": "https://images-of-elements.com/nitrogen.jpg", "video": ""},
+    "O": {"Z": 8, "name": "산소", "image": "https://images-of-elements.com/oxygen.jpg", "video": ""},
+    "F": {"Z": 9, "name": "플루오린", "image": "https://images-of-elements.com/fluorine.jpg", "video": ""},
+    "Ne": {"Z": 10, "name": "네온", "image": "https://images-of-elements.com/neon.jpg", "video": ""},
+    "Na": {"Z": 11, "name": "나트륨", "image": "https://images-of-elements.com/sodium.jpg", "video": ""},
+    "Mg": {"Z": 12, "name": "마그네슘", "image": "https://images-of-elements.com/magnesium.jpg", "video": ""},
+    "Al": {"Z": 13, "name": "알루미늄", "image": "https://images-of-elements.com/aluminium.jpg", "video": ""},
+    "Si": {"Z": 14, "name": "규소", "image": "https://images-of-elements.com/silicon.jpg", "video": ""},
+    "P": {"Z": 15, "name": "인", "image": "https://images-of-elements.com/phosphorus.jpg", "video": ""},
+    "S": {"Z": 16, "name": "황", "image": "https://images-of-elements.com/sulfur.jpg", "video": ""},
+    "Cl": {"Z": 17, "name": "염소", "image": "https://images-of-elements.com/chlorine.jpg", "video": ""},
+    "Ar": {"Z": 18, "name": "아르곤", "image": "https://images-of-elements.com/argon.jpg", "video": ""},
+    "K": {"Z": 19, "name": "칼륨", "image": "https://images-of-elements.com/potassium.jpg", "video": ""},
+    "Ca": {"Z": 20, "name": "칼슘", "image": "https://images-of-elements.com/calcium.jpg", "video": ""}
 }
 
 # 상태 초기화
