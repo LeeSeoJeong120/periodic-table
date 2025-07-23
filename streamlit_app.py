@@ -1,6 +1,5 @@
 import streamlit as st
 
-
 # 페이지 전체 wide 설정
 st.set_page_config(layout="wide")
 
@@ -12,7 +11,7 @@ def convert_to_embed(url):
         return url.replace("shorts/", "embed/")
     return url
 
-# ▶ 원소 정보 일부 예시
+# ▶ 원소 정보 일부 예시 (1~20번)
 elements = {
     "H": {"Z": 1, "name": "Hydrogen", "image": "https://images-of-elements.com/hydrogen.jpg", "video": "https://youtube.com/shorts/enPX78U9nbg?si=yZ25IlbAC1zmJHS4"},
     "He": {"Z": 2, "name": "Helium", "image": "https://images-of-elements.com/helium.jpg", "video": "https://www.youtube.com/watch?v=SKM3UG2iFOw"},
@@ -46,7 +45,7 @@ st.title("🔬 주기율표 1~20번 원소")
 # 🔼 상단: 버튼 구역 (좌우 여백 넓게)
 # ────────────────
 with st.container():
-    st.markdown("### 🔍 주기율표 버튼")
+    st.markdown("### 📌 주기율표에서 원소를 선택하세요")
 
     layout = [
         ["H", None, None, None, None, None, None, "He"],
@@ -56,19 +55,19 @@ with st.container():
     ]
 
     for row in layout:
-        cols = st.columns([0.8, 1, 1, 1, 1, 1, 1, 1, 1, 0.8])  # 좌우 여백 넓게
+        cols = st.columns([0.8, 1, 1, 1, 1, 1, 1, 1, 1, 0.8])  # 여백 포함
         for i, symbol in enumerate(row):
             if symbol:
-                if cols[i + 1].button(symbol):  # 실제 버튼은 가운데 1~8열
+                if cols[i + 1].button(symbol):
                     st.session_state.selected = symbol
 
 # ────────────────
 # 🔽 하단: 선택된 원소 정보
 # ────────────────
-if st.session_state.selected:
+if st.session_state.selected and st.session_state.selected in elements:
     el = elements[st.session_state.selected]
     st.markdown("---")
-    st.markdown(f"### 🔍 원자번호 {el['Z']} - {el['name']} ({st.session_state.selected})")
+    st.markdown(f"### 🧪 원자번호 {el['Z']} - {el['name']} ({st.session_state.selected})")
 
     with st.container():
         col_img, col_vid = st.columns([1, 2])
@@ -81,3 +80,5 @@ if st.session_state.selected:
                 st.video(convert_to_embed(el["video"]))
             else:
                 st.info("등록된 영상이 없습니다.")
+else:
+    st.info("왼쪽에서 원소를 선택하면 정보를 확인할 수 있습니다.")
