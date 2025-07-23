@@ -1,5 +1,6 @@
 import streamlit as st
 
+
 # 페이지 전체 wide 설정
 st.set_page_config(layout="wide")
 
@@ -45,7 +46,7 @@ st.title("🔬 주기율표 1~20번 원소")
 # 🔼 상단: 버튼 구역 (좌우 여백 넓게)
 # ────────────────
 with st.container():
-    st.markdown("### 🧷 주기율표 버튼")
+    st.markdown("### 🔍 주기율표 버튼")
 
     layout = [
         ["H", None, None, None, None, None, None, "He"],
