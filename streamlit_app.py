@@ -1,151 +1,63 @@
 import streamlit as st
-import pandas as pd
-import math
-from pathlib import Path
 
-# Set the title and favicon that appear in the Browser's tab bar.
-st.set_page_config(
-    page_title='GDP dashboard',
-    page_icon=':earth_americas:', # This is an emoji shortcode. Could be a URL too.
-)
+# Streamlit 상태 초기화
+if "selected" not in st.session_state:
+    st.session_state.selected = None
 
-# -----------------------------------------------------------------------------
-# Declare some useful functions.
+def convert_to_embed(url):
+    if "watch?v=" in url:
+        return url.replace("watch?v=", "embed/")
+    elif "shorts/" in url:
+        return url.replace("shorts/", "embed/")
+    return url
 
-@st.cache_data
-def get_gdp_data():
-    """Grab GDP data from a CSV file.
+# 원소 정보 (1~20번)
+elements = {
+    "H":  {"Z": 1,  "name": "수소",  "video": "https://youtube.com/shorts/enPX78U9nbg?si=b3crXHGSq4dLiXTG"},
+    "He": {"Z": 2,  "name": "헬륨",    "video": "https://youtu.be/SKM3UG2iFOw"},
+    "Li": {"Z": 3,  "name": "리튬",   "video": "https://youtu.be/1Zz8bRK8j1I"},
+    "Be": {"Z": 4,  "name": "베릴륨", "video": "https://youtu.be/8e5kSt53PeU"},
+    "B":  {"Z": 5,  "name": "붕소",     "video": "https://youtu.be/jghvuTLpZMo"},
+    "C":  {"Z": 6,  "name": "탄소",    "video": "https://youtu.be/dkKaC5q9Rp0"},
+    "N":  {"Z": 7,  "name": "질소",  "video": "https://youtu.be/ohGzREVa3G8"},
+    "O":  {"Z": 8,  "name": "산소",    "video": "https://youtu.be/Sf80sYj1XRs"},
+    "F":  {"Z": 9,  "name": "플루오린",  "video": "https://youtu.be/6_JT5Gk6jfw"},
+    "Ne": {"Z": 10, "name": "네온",      "video": "https://youtu.be/dQYQJHQhuzU"},
+    "Na": {"Z": 11, "name": "나트륨",    "video": "https://youtu.be/KK5jnxB5eCo"},
+    "Mg": {"Z": 12, "name": "마그네슘", "video": "https://youtu.be/r89aIgldkPg"},
+    "Al": {"Z": 13, "name": "알루미늄", "video": "https://youtu.be/Yy8PYJYfk6I"},
+    "Si": {"Z": 14, "name": "규소",   "video": "https://youtu.be/bkzEHDZUbHg"},
+    "P":  {"Z": 15, "name": "인","video": "https://youtu.be/U1e9kB_OxMQ"},
+    "S":  {"Z": 16, "name": "황",    "video": "https://youtu.be/vlQm3Q8gKps"},
+    "Cl": {"Z": 17, "name": "염소",  "video": "https://youtu.be/vI_Gh7jBA-M"},
+    "Ar": {"Z": 18, "name": "아르곤",     "video": "https://youtu.be/J_lF8hbd-Qg"},
+    "K":  {"Z": 19, "name": "칼륨", "video": "https://youtu.be/CeyuMs95NvA"},
+    "Ca": {"Z": 20, "name": "칼슘",   "video": "https://youtu.be/jja6b1xOQDQ"},
+}
 
-    This uses caching to avoid having to read the file every time. If we were
-    reading from an HTTP endpoint instead of a file, it's a good idea to set
-    a maximum age to the cache with the TTL argument: @st.cache_data(ttl='1d')
-    """
+st.title("🔬 주기율표 1~20번 원소")
 
-    # Instead of a CSV on disk, you could read from an HTTP endpoint here too.
-    DATA_FILENAME = Path(__file__).parent/'data/gdp_data.csv'
-    raw_gdp_df = pd.read_csv(DATA_FILENAME)
-
-    MIN_YEAR = 1960
-    MAX_YEAR = 2022
-
-    # The data above has columns like:
-    # - Country Name
-    # - Country Code
-    # - [Stuff I don't care about]
-    # - GDP for 1960
-    # - GDP for 1961
-    # - GDP for 1962
-    # - ...
-    # - GDP for 2022
-    #
-    # ...but I want this instead:
-    # - Country Name
-    # - Country Code
-    # - Year
-    # - GDP
-    #
-    # So let's pivot all those year-columns into two: Year and GDP
-    gdp_df = raw_gdp_df.melt(
-        ['Country Code'],
-        [str(x) for x in range(MIN_YEAR, MAX_YEAR + 1)],
-        'Year',
-        'GDP',
-    )
-
-    # Convert years from string to integers
-    gdp_df['Year'] = pd.to_numeric(gdp_df['Year'])
-
-    return gdp_df
-
-gdp_df = get_gdp_data()
-
-# -----------------------------------------------------------------------------
-# Draw the actual page
-
-# Set the title that appears at the top of the page.
-'''
-# :earth_americas: GDP dashboard
-
-Browse GDP data from the [World Bank Open Data](https://data.worldbank.org/) website. As you'll
-notice, the data only goes to 2022 right now, and datapoints for certain years are often missing.
-But it's otherwise a great (and did I mention _free_?) source of data.
-'''
-
-# Add some spacing
-''
-''
-
-min_value = gdp_df['Year'].min()
-max_value = gdp_df['Year'].max()
-
-from_year, to_year = st.slider(
-    'Which years are you interested in?',
-    min_value=min_value,
-    max_value=max_value,
-    value=[min_value, max_value])
-
-countries = gdp_df['Country Code'].unique()
-
-if not len(countries):
-    st.warning("Select at least one country")
-
-selected_countries = st.multiselect(
-    'Which countries would you like to view?',
-    countries,
-    ['DEU', 'FRA', 'GBR', 'BRA', 'MEX', 'JPN'])
-
-''
-''
-''
-
-# Filter the data
-filtered_gdp_df = gdp_df[
-    (gdp_df['Country Code'].isin(selected_countries))
-    & (gdp_df['Year'] <= to_year)
-    & (from_year <= gdp_df['Year'])
+# ▶︎ 각 행 구성 (None은 빈칸)
+layout = [
+    ["H", None, None, None, None, None, None, "He"],
+    ["Li", "Be", "B", "C", "N", "O", "F", "Ne"],
+    ["Na", "Mg", "Al", "Si", "P", "S", "Cl", "Ar"],
+    ["K", "Ca", None, None, None, None, None, None]
 ]
 
-st.header('GDP over time', divider='gray')
-
-''
-
-st.line_chart(
-    filtered_gdp_df,
-    x='Year',
-    y='GDP',
-    color='Country Code',
-)
-
-''
-''
-
-
-first_year = gdp_df[gdp_df['Year'] == from_year]
-last_year = gdp_df[gdp_df['Year'] == to_year]
-
-st.header(f'GDP in {to_year}', divider='gray')
-
-''
-
-cols = st.columns(4)
-
-for i, country in enumerate(selected_countries):
-    col = cols[i % len(cols)]
-
-    with col:
-        first_gdp = first_year[first_year['Country Code'] == country]['GDP'].iat[0] / 1000000000
-        last_gdp = last_year[last_year['Country Code'] == country]['GDP'].iat[0] / 1000000000
-
-        if math.isnan(first_gdp):
-            growth = 'n/a'
-            delta_color = 'off'
+# 버튼 배치
+for row in layout:
+    cols = st.columns(8)
+    for i, symbol in enumerate(row):
+        if symbol:
+            if cols[i].button(symbol):
+                st.session_state.selected = symbol
         else:
-            growth = f'{last_gdp / first_gdp:,.2f}x'
-            delta_color = 'normal'
+            cols[i].write(" ")
 
-        st.metric(
-            label=f'{country} GDP',
-            value=f'{last_gdp:,.0f}B',
-            delta=growth,
-            delta_color=delta_color
-        )
+# ▶︎ 선택된 원소 정보 출력
+if st.session_state.selected:
+    el = elements[st.session_state.selected]
+    st.markdown("---")
+    st.subheader(f"원자번호 {el['Z']} - {el['name']} ({st.session_state.selected})")
+    st.video(convert_to_embed(el["video"]))
